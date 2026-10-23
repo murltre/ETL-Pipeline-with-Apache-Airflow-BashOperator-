@@ -4,11 +4,6 @@ The DAG extracts selected fields from CSV, TSV, and fixed-width source files,
 consolidates them into one file, uppercases the vehicle type, and writes the
 transformed output into the staging directory.
 
-Expected layout:
-  $AIRFLOW_HOME/dags/ETL_toll_data.py
-  $AIRFLOW_HOME/dags/finalassignment/tolldata.tgz
-  $AIRFLOW_HOME/dags/finalassignment/staging/
-"""
 
 from datetime import datetime, timedelta
 import os
@@ -25,8 +20,8 @@ BASE_DIR = AIRFLOW_HOME / "dags" / "finalassignment"
 STAGING_DIR = BASE_DIR / "staging"
 ARCHIVE_PATH = BASE_DIR / "tolldata.tgz"
 
-# Assignment settings. Replace the placeholder email with a real address if
-# SMTP email is configured in Airflow. These flags alone do not configure SMTP.
+
+# set default dags arguments
 default_args = {
     "owner": "data_engineer",
     "start_date": datetime(2026, 10, 22),
@@ -38,12 +33,12 @@ default_args = {
 }
 
 # Define the daily DAG. catchup=False avoids creating a backlog of old
-# scheduled runs when the DAG is first enabled or Airflow is restarted.
+# scheduled runs when the DAG is first enabled, or Airflow is restarted.
 with DAG(
     dag_id="ETL_toll_data",
     default_args=default_args,
     schedule="@daily",
-    description="Apache Airflow Final Assignment: toll data ETL using BashOperator",
+    description="Apache Airflow ETL: toll data ETL using BashOperator",
     catchup=False,
     max_active_runs=1,
     tags=["ETL", "BashOperator", "toll-data"],
