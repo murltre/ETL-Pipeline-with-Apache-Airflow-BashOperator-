@@ -37,60 +37,8 @@ transform_data
 5. `consolidate_data`: combines the three extracted files side by side with `paste`.
 6. `transform_data`: uppercases column 4 (`Vehicle type`) and writes `transformed_data.csv`.
 
-**Important:** `paste` combines rows by line position, not by joining on a key. The assignment's source files are expected to align row by row. The shell pipeline follows the lab's field positions and delimiter conversion.
+**Important:** `paste` combines rows by line position, not by joining on a key.
 
-## Local project paths
-
-The project was developed inside the existing `~/IBMDEexercises/AirflowKafka` folder:
-
-```text
-~/IBMDEexercises/AirflowKafka/
-├── .venv/                              # Existing Python virtual environment
-└── airflow_home/
-    └── dags/
-        ├── ETL_toll_data.py            # This DAG file
-        └── finalassignment/
-            ├── tolldata.tgz             # Downloaded source archive
-            └── staging/
-                ├── vehicle-data.csv
-                ├── tollplaza-data.tsv
-                ├── payment-data.txt
-                ├── csv_data.csv
-                ├── tsv_data.csv
-                ├── fixed_width_data.csv
-                ├── extracted_data.csv
-                └── transformed_data.csv
-```
-
-The data archive and generated outputs are not included in this repository bundle. The setup guide shows how to download the archive and recreate the directories.
-
-## Quick start
-
-See [`docs/REPRODUCE_AND_COMMANDS.md`](docs/REPRODUCE_AND_COMMANDS.md) for the full, commented setup and reproduction procedure.
-
-Basic checks:
-
-```bash
-# Activate the existing environment and point Airflow to the project home.
-cd ~/IBMDEexercises/AirflowKafka
-source .venv/bin/activate
-export AIRFLOW_HOME="$HOME/IBMDEexercises/AirflowKafka/airflow_home"
-
-# Check DAG import errors and confirm that Airflow discovers the DAG.
-airflow dags list-import-errors
-airflow dags list | grep ETL_toll_data
-
-# List task IDs, unpause the DAG, and manually trigger a run.
-airflow tasks list ETL_toll_data
-airflow dags unpause ETL_toll_data
-airflow dags trigger ETL_toll_data
-```
-
-## Output
-
-The final transformed file is saved at:
-
-`$AIRFLOW_HOME/dags/finalassignment/staging/transformed_data.csv`
 
 ## Key learning points
 
@@ -102,10 +50,5 @@ The final transformed file is saved at:
 - The Airflow UI and task logs are used to monitor runs and troubleshoot failures.
 
 ## Notes before publishing
-
-- Replace `your_email@example.com` in `ETL_toll_data.py` with an intended address, or adjust the email settings. Alert delivery also requires SMTP to be configured in Airflow.
-- The `start_date` is set to the project build date. `catchup=False` prevents backfilling older scheduled runs; manual triggering is available at any time.
-- Do not commit Airflow logs, the downloaded archive, virtual environments, or generated staging CSV files.
-- Screenshots can be added under `screenshots/`; see [`screenshots/SCREENSHOT_CHECKLIST.md`](screenshots/SCREENSHOT_CHECKLIST.md).
 
 **Project focus:** Batch ETL · Apache Airflow · BashOperator · Linux shell utilities · Workflow orchestration
