@@ -1,4 +1,4 @@
-# ETL Toll Data Pipeline with Apache Airflow (BashOperator)
+# ETL Pipeline with Apache Airflow (BashOperator)
 
 ## Project overview
 
