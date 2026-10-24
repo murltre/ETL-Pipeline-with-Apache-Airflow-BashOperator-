@@ -8,8 +8,8 @@ The source lab asks for CSV, TSV, and fixed-width extraction, transformation, an
 
 ## Technology stack
 
-- Apache Airflow 2.10.5: schedules, coordinates, and monitors the workflow
-- Python 3.12: defines the DAG and task configuration
+- Apache Airflow: DAGs, schedules, coordinates, and monitors the workflow
+- Python: defines the DAG and task configuration
 - `BashOperator`: executes Linux shell commands as Airflow tasks
 - Linux utilities: `tar`, `cut`, `tr`, `paste`, and `awk`
 - Ubuntu on WSL and VS Code: local development environment
